@@ -2,6 +2,11 @@ import React, {Component} from 'react'
 
 // make sure you've got the API running first!
 
+const Post = props => <span>{props.id}. {props.title}</span>
+Post.propTypes = {
+    id: React.PropTypes.number.isRequired,
+    title: React.PropTypes.string.isRequired
+}
 export default class AsyncDataExercise extends Component {
   constructor(props) {
     super(props)
@@ -12,7 +17,9 @@ export default class AsyncDataExercise extends Component {
 
   componentDidMount() {
     fetch('http://localhost:3004/posts').then(data => data.json()).then(posts => {
-      this.setState({posts: posts})
+      this.setState({
+        posts: posts
+      })
       // EXERCISE: how do I store the new posts as state on the component?
     })
   }
@@ -23,7 +30,7 @@ export default class AsyncDataExercise extends Component {
     // and define propTypes for it
     return (
       <ul>
-        {this.state.posts.map(post => <li>{post.id}. {post.title}</li>)}
+        {this.state.posts.map(post => <li><Post {...post} /></li>)}
       </ul>
     )
   }
