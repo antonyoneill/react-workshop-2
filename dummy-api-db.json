@@ -1,8 +1,8 @@
 {
   "posts": [
-    {
-      "title": "two",
-      "id": 2
-    }
+    { "id": 1, "title": "Intro to React" },
+    { "id": 2, "title": "All about Ember" },
+    { "id": 3, "title": "Starting with AngularJS" },
+    { "id": 4, "title": "Advanced React" }
   ]
 }
