@@ -6,13 +6,13 @@ export default class AsyncDataExercise extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      search: '',
-      posts: undefined
+      posts: undefined,
+      term: ''
     }
     this.onSubmit = this.onSubmit.bind(this)
     this.onChange = this.onChange.bind(this)
-    this.searchFor = this.searchFor.bind(this)
     this.searchForReact = this.searchForReact.bind(this)
+    this.fetchPosts()
   }
 
   componentDidMount() {
@@ -25,9 +25,7 @@ export default class AsyncDataExercise extends Component {
   }
 
   fetchPosts() {
-    // EXERCISE: how can you change this search query based on what
-    // the user has typed into the text field
-    fetch(`http://localhost:3004/posts?q=${this.state.search}`)
+    fetch(`http://localhost:3004/posts`)
       .then(data => data.json())
       .then(posts => {
         this.setState({
@@ -37,25 +35,22 @@ export default class AsyncDataExercise extends Component {
   }
 
   onChange(evt) {
-    this.searchFor(evt.target.value)
-  }
-
-  searchFor(term) {
-    this.setState({search: term}, this.fetchPosts)
+    this.setState({term: evt.target.value},
+    this.renderPosts)
   }
 
   searchForReact() {
-    this.searchFor('react')
+    this.renderPosts('react')
   }
 
   renderPosts() {
     return (
       <ul>
-        { this.state.posts.map(post => (
-          // EXERCISE: abstract this into its own component
-          // and fill out the propTypes
-          <li key={post.id}><p>{post.title}</p></li>
-        )) }
+        {
+          this.state.posts
+            .filter(post => post.title.match(this.state.term))
+            .map(post => <li key={post.id}><p>{post.title}</p></li>)
+        }
       </ul>
     )
   }
@@ -68,7 +63,7 @@ export default class AsyncDataExercise extends Component {
         { /* EXERCISE: you'll need to bind to the onChange event of the input to know the latest value that the user has typed */}
         <form onSubmit={this.onSubmit}>
           { /* EXERCISE: csn you make this input auto focus when the user visits the page, like we did earlier on Codepen? */ }
-          <input type="text" onChange={this.onChange} value={this.state.search} />
+          <input type="text" onChange={this.onChange} value={this.state.term} />
           <input type="submit" value="Search" />
         <button onClick={this.searchForReact} >React posts</button>
           { /* EXERCISE: add a button that clears the search term and just lists all posts */}
