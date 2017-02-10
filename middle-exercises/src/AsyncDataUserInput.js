@@ -6,25 +6,46 @@ export default class AsyncDataExercise extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      // EXERCISE: you'll need to store the user's search term in state
+      search: '',
       posts: undefined
     }
+    this.onSubmit = this.onSubmit.bind(this)
+    this.onChange = this.onChange.bind(this)
+    this.searchFor = this.searchFor.bind(this)
+    this.searchForReact = this.searchForReact.bind(this)
   }
 
   componentDidMount() {
     this.fetchPosts()
   }
 
+  onSubmit(evt) {
+    this.fetchPosts()
+    evt.preventDefault()
+  }
+
   fetchPosts() {
     // EXERCISE: how can you change this search query based on what
     // the user has typed into the text field
-    fetch('http://localhost:3004/posts?q=react')
+    fetch(`http://localhost:3004/posts?q=${this.state.search}`)
       .then(data => data.json())
       .then(posts => {
         this.setState({
           posts: posts,
         })
       })
+  }
+
+  onChange(evt) {
+    this.searchFor(evt.target.value)
+  }
+
+  searchFor(term) {
+    this.setState({search: term}, this.fetchPosts)
+  }
+
+  searchForReact() {
+    this.searchFor('react')
   }
 
   renderPosts() {
@@ -45,10 +66,11 @@ export default class AsyncDataExercise extends Component {
         { this.state.posts && this.renderPosts() }
         { /* EXERCISE: bind to the onSubmit event on this form so we can search when the user submits */ }
         { /* EXERCISE: you'll need to bind to the onChange event of the input to know the latest value that the user has typed */}
-        <form>
+        <form onSubmit={this.onSubmit}>
           { /* EXERCISE: csn you make this input auto focus when the user visits the page, like we did earlier on Codepen? */ }
-          <input type="text" />
+          <input type="text" onChange={this.onChange} value={this.state.search} />
           <input type="submit" value="Search" />
+        <button onClick={this.searchForReact} >React posts</button>
           { /* EXERCISE: add a button that clears the search term and just lists all posts */}
         </form>
       </div>

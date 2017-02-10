@@ -27,7 +27,7 @@ export default class AsyncDataExercise extends Component {
   renderPosts() {
     return (
       <header>
-        {this.state.posts.map(post => <Post post={post}/>)}
+        {this.state.posts.map(post => <Post key={post.id} post={post}/>)}
       </header>
     )
   }
