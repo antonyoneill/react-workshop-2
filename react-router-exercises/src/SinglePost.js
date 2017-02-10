@@ -16,7 +16,7 @@ class SinglePost extends Component {
     }
   }
 
-  componentWillMount() {
+  fetchPost() {
     fetch(`http://localhost:3004/posts/${this.props.match.params.id}`)
       .then(data => data.json())
       .then(post => {
@@ -24,6 +24,16 @@ class SinglePost extends Component {
           post: post,
         })
       })
+  }
+
+  componentWillMount() {
+    this.fetchPost()
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.match.params.id !== this.props.match.params.id) {
+      this.fetchPost()
+    }
   }
 
   render() {

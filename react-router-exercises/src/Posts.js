@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import Post from './Post'
+import {Route} from 'react-router-dom'
+import SinglePost from './SinglePost'
 // EXERCISE: can you update this component so it makes an API request to fetch the posts from our dummy API, and renders them?
 /*
 1. fetch() the posts on componentDidMount
@@ -27,6 +29,8 @@ class Posts extends Component {
     return (
       <div>
         <ul>{this.state.posts.map(post => <li><Post post={post}/></li>)}</ul>
+        <hr />
+        <Route path="/posts/:id" component={SinglePost}/>
       </div>
     )
   }

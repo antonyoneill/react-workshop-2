@@ -31,8 +31,8 @@ class App extends Component {
               {/* EXERCISE: add another Route for an "about page" */}
               <Route exact path="/" component={Home} />
               <Route exact path="/about" component={About} />
-              <Route exact path="/posts" component={Posts} />
-              <Route exact path="/posts/:id" component={SinglePost} />
+              <Route path="/posts" component={Posts} />
+              {/* <Route exact path="/posts/:id" component={SinglePost} /> */}
             </div>
           </div>
         </Router>
