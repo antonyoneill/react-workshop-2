@@ -18,7 +18,7 @@ export default (state, action) => {
         }])
       }
     case 'TOGGLE_TODO':
-      const id = action.data.id
+      const id = action.id
       debugger
       return {
         todos: state.todos.map(todo => {

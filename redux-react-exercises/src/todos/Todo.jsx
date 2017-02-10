@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 class Todo extends Component {
   toggleTodo() {
     debugger
-    this.props.dispatch({ type: 'TOGGLE_TODO', data: { id: this.props.todo.id}})
+    this.props.dispatch({ type: 'TOGGLE_TODO', id: this.props.todo.id})
   }
 
   render() {
