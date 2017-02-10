@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 
 // EXERCISE: can you update this component so it makes an API request to fetch the posts from our dummy API, and renders them?
 /*
@@ -8,8 +9,9 @@ import React, { Component } from 'react'
 */
 class Post extends Component {
   render() {
+    const id = this.props.post.id
     return (
-      <a>{this.props.post.id} {this.props.post.title}</a>
+      <Link to={`/posts/${id}`}>{id} {this.props.post.title}</Link>
     )
   }
 }

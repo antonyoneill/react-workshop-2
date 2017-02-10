@@ -8,12 +8,35 @@ import React, { Component } from 'react'
 4. Deal with the case of a post not being found
 */
 class SinglePost extends Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      post: undefined
+    }
+  }
+
+  componentWillMount() {
+    fetch(`http://localhost:3004/posts/${this.props.match.params.id}`)
+      .then(data => data.json())
+      .then(post => {
+        this.setState({
+          post: post,
+        })
+      })
+  }
+
   render() {
-    return (
-      <div>
-        <p>A single post! ID: {this.props.match.params.id}</p>
-      </div>
-    )
+    if (this.state.post) {
+      return (
+        <div>
+          <p>A single post! ID: {this.props.match.params.id}</p>
+          <p>{this.state.post && this.state.post.title}</p>
+        </div>
+      )
+    } else {
+      return <span>Still loading!</span>
+    }
   }
 }
 
