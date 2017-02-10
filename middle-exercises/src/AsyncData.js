@@ -2,11 +2,14 @@ import React, {Component} from 'react'
 
 // make sure you've got the API running first!
 
-const Post = props => <span>{props.id}. {props.title}</span>
+const Post = props => <h1 id={`post-${props.post.id}`}>{props.post.id}. {props.post.title}</h1>
 Post.propTypes = {
+  post: React.PropTypes.shape({
     id: React.PropTypes.number.isRequired,
     title: React.PropTypes.string.isRequired
+  }).isRequired
 }
+
 export default class AsyncDataExercise extends Component {
   constructor(props) {
     super(props)
@@ -17,21 +20,15 @@ export default class AsyncDataExercise extends Component {
 
   componentDidMount() {
     fetch('http://localhost:3004/posts').then(data => data.json()).then(posts => {
-      this.setState({
-        posts: posts
-      })
-      // EXERCISE: how do I store the new posts as state on the component?
+      this.setState({posts: posts})
     })
   }
 
   renderPosts() {
-    // EXERCISE: render each post here
-    // EXERCISE: abstract a <Post> component
-    // and define propTypes for it
     return (
-      <ul>
-        {this.state.posts.map(post => <li><Post {...post} /></li>)}
-      </ul>
+      <header>
+        {this.state.posts.map(post => <Post post={post}/>)}
+      </header>
     )
   }
   render() {
