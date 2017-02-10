@@ -29,7 +29,17 @@ export default class ChildParentCommunication extends Component {
 
   onNewPost(post) {
     this.setState({
-      posts: this.state.posts.concat(post)
+      posts: this.state.posts.concat([post])
+    })
+  }
+
+  deletePost(id) {
+    fetch(`http://localhost:3004/posts/${id}`,{
+        'method': 'DELETE'
+    }).then(response => {
+      this.setState({
+        posts: this.state.posts.filter(post => post.id !== id)
+      })
     })
   }
 
@@ -37,7 +47,7 @@ export default class ChildParentCommunication extends Component {
     return (
       <ul>
         { this.state.posts.map(post => (
-          <li key={post.id}><Post post={post} /></li>
+          <li key={post.id}><Post post={post} /><button onClick={this.deletePost.bind(this, post.id)}>Delete</button></li>
         )) }
       </ul>
     )
