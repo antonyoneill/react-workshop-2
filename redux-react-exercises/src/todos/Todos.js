@@ -1,19 +1,17 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import AddTodo from './AddTodo'
+import Todo from './Todo'
 
 class Todos extends Component {
+
+
   render() {
     return (
       <div>
         <h4>Todos</h4>
         <ul>
-        { this.props.todos.map(todo => (
-          <li key={todo.id}>
-            <p>{todo.text}</p>
-            { todo.done ? 'DONE' : 'Not done!' }
-          </li>
-        )) }
+        { this.props.todos.map(todo => <Todo key={todo.id} todo={todo}/>) }
       </ul>
       <AddTodo />
       </div>
@@ -26,5 +24,6 @@ const mapStateToProps = state => {
     todos: state.todos,
   }
 }
+
 const Connected = connect(mapStateToProps)(Todos)
 export default Connected

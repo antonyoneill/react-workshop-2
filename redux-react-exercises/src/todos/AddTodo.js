@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 // EXERCISE: connect up this component to Redux, so that it can dispatch actions
-export default class AddTodo extends Component {
+class AddTodo extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -13,6 +13,7 @@ export default class AddTodo extends Component {
   onSubmit(e) {
     e.preventDefault()
     // TODO: dispatch an action so the new todo is saved
+    this.props.dispatch({type: 'NEW_TODO', data:{text: this.state.input}})
   }
 
   onChange(e) {
@@ -31,3 +32,6 @@ export default class AddTodo extends Component {
     )
   }
 }
+
+const Connected = connect()(AddTodo)
+export default Connected
